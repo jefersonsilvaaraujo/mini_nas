@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Servidor NAS</title>
+</head>
+<body>
+    <h2>Mini Servidor NAS - Compartilhamento de Arquivos</h2>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Enviar Arquivo">
+    </form>
+    <h3>Arquivos Disponíveis</h3>
+    <ul>
+        {% for file in files %}
+            <li><a href="/download/{{ file }}">{{ file }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
