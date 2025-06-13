@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, send_from_directory
+from werkzeug.utils import secure_filename
 import os
 #variavel responsavel por controlar o caminho do arquivo
 app = Flask(__name__)
@@ -15,8 +16,9 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['file']
-    if file:
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+    if file and file.filename:
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     return index()
 #rota responsavel pelos downloads dos arquivos salvos
 @app.route('/download/<filename>')
